@@ -24,13 +24,16 @@ cents = '(\$[0]?/.(\d\d))'
 #read cents ending in "cents"
 numCents = '\d+[ ]cent[s]?'
 #read cents in words
-centsOnlyWords = '((one|two|three|four|forty|five|six|seven|eight|nine|ten|eleven|twelve|thir|fif|eigh|twen)(teen|ty)?\-?)+[ ]cent(s)'
+centsOnlyWords = '(((one)|(two)|(three)|(four)|(forty)|(five)|(six)|(seven)|(eight)|(nine)|(ten)|(eleven)|(twelve)|(thir)|(fif)|(eigh)|(twen))((teen)|(ty))?\ ?)+[ ]cent(s)'
 #read words depicting money
-words = '((((one|two|three|four|forty|five|six|seven|eight|nine|ten|eleven|twelve|thir|fif|eigh|twen)(teen|ty)?\-?)[ ]?(hundred[s]?)?[ ]?(thousand[s])?[ ]?(million[s]?)?[ ]?(billion[s])?[ ]?(trillion[s]?)?)+[ ](dollar[s]?))'
+words = '(((one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thir|fif|eigh|twen)(teen|ty)?[ ]?)+((hundred[s]?[ ]?)?(thousand[s]?[ ]?)?(million[s]?[ ]?)?(billion[s]?[ ]?)?(trillion[s]?[ ]?)?)*)+[ ](dollar[s]?)'
 #read numerical values with large qualifiers
 numLargeQual = '(\$\d[\d\,]*[\d][ ](hundred[s]?)?[ ]?(thousand[s]?)?[ ]?(million[s]?)?[ ](billion[s]?)?[ ](trillion[s]?))'
 query = nums +'|' + cents +'|' + numCents + '|' + centsOnlyWords + '|' + words + '|' + numLargeQual
 # print(type(query))
 list = re.finditer(query, raw)
+output = open("dollar_output.txt", "w", encoding='utf8')
 for item in list:
-    print(item.group(0))
+    output.write(item.group(0) + '\n')
+
+
